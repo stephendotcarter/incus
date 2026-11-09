@@ -50,15 +50,15 @@ This command parses the metadata tarball to retrieve the following fields from i
  - properties["description"]
  - properties["os"]
  - properties["release"]
- - properties["variant"]
  - properties["architecture"]
+ - properties["variant"]
 
 It then check computes the hash for the new image, confirm it's not
 already on the image server and finally adds it to the index.
 
 Unless "--no-default-alias" is specified, it generates a default "{os}/{release}/{variant}" alias.
 
-Unless "--product-name" is specified, the product name is generated as "{os}:{release}:{variant}:{architecture}".
+Unless "--product-name" is specified, the product name is generated as "{os}:{release}:{architecture}:{variant}".
 
 Unless "--image-version" is specified, the version name is derived from
 creation_date in metadata.yaml.  Pass the same --image-version when adding
@@ -367,7 +367,7 @@ func (c *cmdAdd) run(cmd *cobra.Command, args []string) error {
 	if c.flagProductName != "" {
 		productName = c.flagProductName
 	} else {
-		productName = fmt.Sprintf("%s:%s:%s:%s", metadata.Properties["os"], metadata.Properties["release"], metadata.Properties["variant"], metadata.Properties["architecture"])
+		productName = fmt.Sprintf("%s:%s:%s:%s", metadata.Properties["os"], metadata.Properties["release"], metadata.Properties["architecture"], metadata.Properties["variant"])
 	}
 
 	// Check if the product already exists.
